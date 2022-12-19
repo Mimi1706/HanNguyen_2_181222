@@ -49,6 +49,4 @@ def write_csv():
             writer.writerow(get_book_infos(book))
     
 write_csv()
-
-## for book in get_all_books_urls():
         
