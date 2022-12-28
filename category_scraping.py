@@ -15,7 +15,7 @@ def get_all_categories():
 
     return all_categories
 
-category = get_all_categories()["childrens".lower()] ## write the category in "" example: "romance"
+category = get_all_categories()["".lower()] ## write the category inside "" example: "romance" or "historical fiction"
 
 def get_books_urls():
     url = "http://books.toscrape.com/catalogue/category/books/{0}".format(category)
