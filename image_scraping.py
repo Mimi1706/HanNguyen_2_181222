@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import os ## to create a directory
 
-book_url = "http://books.toscrape.com/catalogue/tipping-the-velvet_999/index.html" ## paste the book link inside "" example: "http://books.toscrape.com/catalogue/the-cat-in-the-hat-beginner-books-b-1_235/index.html"
+book_url = "" ## paste the book link inside "" example: "http://books.toscrape.com/catalogue/the-cat-in-the-hat-beginner-books-b-1_235/index.html"
 
 def get_image_url(book_url):
     response = requests.get(book_url) ## get to the book url
