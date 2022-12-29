@@ -2,10 +2,10 @@ import requests
 from bs4 import BeautifulSoup
 import csv
 
-url = "" ## paste the page link inside "" example: "http://books.toscrape.com/catalogue/category/books/childrens_11/page-2.html"
+page_url = "" ## paste the page link inside "" example: "http://books.toscrape.com/catalogue/category/books/childrens_11/page-2.html"
 
 def get_books_urls():
-    response = requests.get(url)
+    response = requests.get(page_url)
     soup = BeautifulSoup(response.text, "html.parser") ## parser type
 
     book_infos = soup.find_all("article", {"class": "product_pod"})
