@@ -2,23 +2,18 @@ import requests
 from bs4 import BeautifulSoup
 import csv
 
-def get_all_books_urls():
-    url = "http://books.toscrape.com/index.html"
+url = "" ## paste the page link inside "" example: "http://books.toscrape.com/catalogue/category/books/childrens_11/page-2.html"
+
+def get_books_urls():
     response = requests.get(url)
     soup = BeautifulSoup(response.text, "html.parser") ## parser type
 
-    total_pages = int(soup.find("li", {"class": "current"}).text.split()[-1]) ## total number of pages at the bottom of the page
+    book_infos = soup.find_all("article", {"class": "product_pod"})
     books_urls = []
 
-    for page in range(1,total_pages+1):
-        url = 'http://books.toscrape.com/catalogue/page-{0}.html'.format(page) ## read through pages
-        response = requests.get(url)
-        soup = BeautifulSoup(response.text, "html.parser") ## parser type
-        book_infos = soup.find_all("article", {"class": "product_pod"}) ## find all books components
-
-        for book in book_infos: ## for each book component
-            book_url = "http://books.toscrape.com/catalogue/" + book.find("a")['href'] ## url of the book
-            books_urls.append(book_url)
+    for book in book_infos:
+        book_url = "http://books.toscrape.com/catalogue/" + '/'.join(book.find("a")['href'].split('/')[3:]) ## url of the book
+        books_urls.append(book_url)
     
     return books_urls
 
@@ -43,11 +38,10 @@ def get_book_infos(book_url):
 def write_csv():
     en_tete = ["product_page_url", "universal_product_code", "title", "price_including_tax", "price_excluding_tax", "number_available", "product_description", "category", "review_rating", "image_url"]
 
-    with open("all_books.csv", "w", newline="") as fichier_csv:
+    with open("page_books.csv", "w", newline="") as fichier_csv:
         writer = csv.writer(fichier_csv, delimiter=",") ## define the writing method
         writer.writerow(en_tete) ## write the columns title
-        for book in get_all_books_urls(): ## write the retrieved data in each column
+        for book in get_books_urls(): ## write the retrieved data in each column
             writer.writerow(get_book_infos(book))
     
 write_csv()
-        

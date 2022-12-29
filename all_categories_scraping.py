@@ -1,8 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
 import csv
+import os ## to create a directory
 
-def get_all_categories():
+def get_categories():
     all_categories = {}
     url = "http://books.toscrape.com/index.html"
     response = requests.get(url)
@@ -15,9 +16,7 @@ def get_all_categories():
 
     return all_categories
 
-category = get_all_categories()["romance".lower()] ## write the category inside "" example: "romance" or "historical fiction"
-
-def get_books_urls():
+def get_books_urls(category):
     url = "http://books.toscrape.com/catalogue/category/books/{0}".format(category)
     response = requests.get(url)
     soup = BeautifulSoup(response.text, "html.parser") ## parser type
@@ -65,13 +64,18 @@ def get_book_infos(book_url):
 
     return product_page_url, universal_product_code, title, price_including_tax, price_excluding_tax, number_available, product_description, category, review_rating, image_url
 
-def write_csv():
+def get_all_books():
     en_tete = ["product_page_url", "universal_product_code", "title", "price_including_tax", "price_excluding_tax", "number_available", "product_description", "category", "review_rating", "image_url"]
+    if not os.path.exists("./books-to-scrape"):
+        os.makedirs("./books-to-scrape") ## makes books folder
 
-    with open("{0}_books.csv".format(''.join(category.split('_')[:-1])), "w", newline="") as fichier_csv:
-        writer = csv.writer(fichier_csv, delimiter=",") ## define the writing method
-        writer.writerow(en_tete) ## write the columns title
-        for book in get_books_urls(): ## write the retrieved data in each column
-            writer.writerow(get_book_infos(book))
+    for category in get_categories():
+        with open("./books-to-scrape/{0}_books.csv".format(''.join(get_categories()[category].split('_')[:-1])), "w", newline="") as fichier_csv:
+            writer = csv.writer(fichier_csv, delimiter=",") ## define the writing method
+            writer.writerow(en_tete) ## write the columns title
+            for book in get_books_urls(get_categories()[category]): ## write the retrieved data in each column
+                writer.writerow(get_book_infos(book))
 
-write_csv()
+    return
+    
+get_all_books()
