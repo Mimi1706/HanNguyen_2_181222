@@ -1,8 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
-import csv
+import os ## to create a directory
 
-def get_all_categories():
+def get_categories():
     all_categories = {}
     url = "http://books.toscrape.com/index.html"
     response = requests.get(url)
@@ -15,9 +15,7 @@ def get_all_categories():
 
     return all_categories
 
-category = get_all_categories()["romance".lower()] ## write the category inside "" example: "romance" or "historical fiction"
-
-def get_books_urls():
+def get_books_urls(category):
     url = "http://books.toscrape.com/catalogue/category/books/{0}".format(category)
     response = requests.get(url)
     soup = BeautifulSoup(response.text, "html.parser") ## parser type
@@ -52,28 +50,21 @@ def get_book_infos(book_url):
     soup = BeautifulSoup(response.text, "html.parser") 
 
     ## retrieves the following data:
-    product_page_url = book_url
-    universal_product_code = soup.find_all("td")[0].text
-    title = soup.find("h1").text
-    price_including_tax = soup.find_all("td")[3].text
-    price_excluding_tax = soup.find_all("td")[2].text
-    number_available = soup.find_all("td")[5].text
-    product_description = soup.find("article", {"class":"product_page"}).find_all("p")[3].text
-    category = soup.find("ul", {"class":"breadcrumb"}).find_all("a")[2].text
-    review_rating = soup.find("p", {"class":"star-rating"})['class'][-1]
+    title = '_'.join(e for e in soup.find("h1").text.lower().split(' ') if e.isalnum()) ## filters all the special characters to avoid errors when saving the image name
     image_url = "http://books.toscrape.com/" + soup.find("img")['src'].split('/',2)[-1]
 
-    return product_page_url, universal_product_code, title, price_including_tax, price_excluding_tax, number_available, product_description, category, review_rating, image_url
+    return title, image_url
 
-def write_csv():
-    en_tete = ["product_page_url", "universal_product_code", "title", "price_including_tax", "price_excluding_tax", "number_available", "product_description", "category", "review_rating", "image_url"]
-
-    with open("{0}_books.csv".format(''.join(category.split('_')[:-1])), "w", newline="") as fichier_csv:
-        writer = csv.writer(fichier_csv, delimiter=",") ## defines the writing method
-        writer.writerow(en_tete) ## writes the columns title
-        for book in get_books_urls(): ## writes the retrieved data in each column
-            writer.writerow(get_book_infos(book))
-    
+def get_images():  
+    if not os.path.exists("./images"):
+        os.makedirs("./images") ## creates the books folder  
+    for category in get_categories():
+        if not os.path.exists("./images/{0}".format(category)):
+            os.makedirs("./images/{0}".format(category)) ## creates the category folder
+        for book in get_books_urls(get_categories()[category]):
+            img_data = requests.get(get_book_infos(book)[1]).content ## retrieves the image content via the url
+            with open('./images/{0}/{1}.jpg'.format(category,get_book_infos(book)[0]), 'wb') as image_file:
+                image_file.write(img_data) ## saves the image
     return
-
-write_csv()
+    
+get_images()

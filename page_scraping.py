@@ -18,10 +18,10 @@ def get_books_urls():
     return books_urls
 
 def get_book_infos(book_url):
-    response = requests.get(book_url) ## get to the book url
+    response = requests.get(book_url) ## gets to the book url
     soup = BeautifulSoup(response.text, "html.parser") 
 
-    ## retrieve the data
+    ## retrieves the following data
     product_page_url = book_url
     universal_product_code = soup.find_all("td")[0].text
     title = soup.find("h1").text
@@ -38,10 +38,10 @@ def get_book_infos(book_url):
 def write_csv():
     en_tete = ["product_page_url", "universal_product_code", "title", "price_including_tax", "price_excluding_tax", "number_available", "product_description", "category", "review_rating", "image_url"]
 
-    with open("page_books.csv", "w", newline="") as fichier_csv:
-        writer = csv.writer(fichier_csv, delimiter=",") ## define the writing method
-        writer.writerow(en_tete) ## write the columns title
-        for book in get_books_urls(): ## write the retrieved data in each column
+    with open("books-to-scrape.csv", "w", newline="") as fichier_csv:
+        writer = csv.writer(fichier_csv, delimiter=",") ## defines the writing method
+        writer.writerow(en_tete) ## writes the columns title
+        for book in get_books_urls(): ## writes the retrieved data in each column
             writer.writerow(get_book_infos(book))
     
 write_csv()
