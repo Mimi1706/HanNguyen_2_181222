@@ -48,6 +48,9 @@ def write_csv():
         writer.writerow(en_tete) ## writes the columns title
         for book in get_all_books_urls(): ## writes the retrieved data in each column
             writer.writerow(get_book_infos(book))
+
+    print("Successful request!")
+    return 
     
-write_csv()
+get_all_books_urls()
         

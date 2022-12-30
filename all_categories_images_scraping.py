@@ -65,6 +65,8 @@ def get_images():
             img_data = requests.get(get_book_infos(book)[1]).content ## retrieves the image content via the url
             with open('./images/{0}/{1}.jpg'.format(category,get_book_infos(book)[0]), 'wb') as image_file:
                 image_file.write(img_data) ## saves the image
+    
+    print("Successful request!")
     return
     
 get_images()

@@ -76,6 +76,7 @@ def get_all_books():
             for book in get_books_urls(get_categories()[category]): ## writes the retrieved data in each column
                 writer.writerow(get_book_infos(book))
 
+    print("Successful request!")
     return
     
 get_all_books()
