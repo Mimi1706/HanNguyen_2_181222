@@ -54,8 +54,8 @@ def get_book_infos(book_url):
     product_page_url = book_url
     universal_product_code = soup.find_all("td")[0].text
     title = soup.find("h1").text
-    price_including_tax = soup.find_all("td")[3].text
-    price_excluding_tax = soup.find_all("td")[2].text
+    price_including_tax = ''.join(e for e in soup.find_all("td")[3].text if e.isnumeric() or e == "£" or e == ".") ## keeps only the price and currency
+    price_excluding_tax = ''.join(e for e in soup.find_all("td")[2].text if e.isnumeric() or e == "£" or e == ".") ## keeps only the price and currency
     number_available = soup.find_all("td")[5].text
     product_description = soup.find("article", {"class":"product_page"}).find_all("p")[3].text
     category = soup.find("ul", {"class":"breadcrumb"}).find_all("a")[2].text

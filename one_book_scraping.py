@@ -13,15 +13,13 @@ def get_book_infos(book_url):
     product_page_url = book_url
     universal_product_code = soup.find_all("td")[0].text
     title = ' '.join(e for e in soup.find("h1").text.lower().split(' ') if e.isalnum())
-    price_including_tax = soup.find_all("td")[3].text
-    price_excluding_tax = soup.find_all("td")[2].text
+    price_including_tax = ''.join(e for e in soup.find_all("td")[3].text if e.isnumeric() or e == "£" or e == ".") ## keeps only the price and currency
+    price_excluding_tax = ''.join(e for e in soup.find_all("td")[2].text if e.isnumeric() or e == "£" or e == ".") ## keeps only the price and currency
     number_available = soup.find_all("td")[5].text
     product_description = soup.find("article", {"class":"product_page"}).find_all("p")[3].text
     category = soup.find("ul", {"class":"breadcrumb"}).find_all("a")[2].text
     review_rating = soup.find("p", {"class":"star-rating"})['class'][-1]
     image_url = "http://books.toscrape.com/" + soup.find("img")['src'].split('/',2)[-1]
-
-    ##.lower().split(' ') if e.isalnum())
 
     return product_page_url, universal_product_code, title, price_including_tax, price_excluding_tax, number_available, product_description, category, review_rating, image_url
 
