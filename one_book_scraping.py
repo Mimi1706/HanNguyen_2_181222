@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import csv
 import os
 
-book_url = "" ## paste the book link inside "" example: "http://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html"
+book_url = input("Paste the book's url you want to scrape the data and cover from: ")
 
 def get_book_infos(book_url):
     response = requests.get(book_url) ## gets to the book url
@@ -41,5 +41,8 @@ def get_book():
     img_data = requests.get(get_book_infos(book_url)[-1]).content ## retrieves the image content via the url
     with open('./{0}/{0}.jpg'.format(book_title), 'wb') as image_file:
         image_file.write(img_data) ## saves the image
+
+    print("Successful request!")
+    return 
     
 get_book()

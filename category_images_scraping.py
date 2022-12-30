@@ -15,7 +15,7 @@ def get_all_categories():
 
     return all_categories
 
-category = get_all_categories()["romance".lower()] ## write the category inside "" example: "romance" or "historical fiction"
+category = get_all_categories()[input("What book category do you want to scrape the covers from: ").lower()]
 
 def get_books_urls():
     url = "http://books.toscrape.com/catalogue/category/books/{0}".format(category)
@@ -66,6 +66,8 @@ def get_images():
         img_data = requests.get(get_book_infos(book)[1]).content ## retrieves the image content via the url
         with open('./images/{0}/{1}.jpg'.format(''.join(category.split('_')[:-1]),get_book_infos(book)[0]), 'wb') as image_file:
             image_file.write(img_data) ## saves the image
+    
+    print("Successful request!")
     return
 
 get_images()

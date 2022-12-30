@@ -15,7 +15,8 @@ def get_all_categories():
 
     return all_categories
 
-category = get_all_categories()["romance".lower()] ## write the category inside "" example: "romance" or "historical fiction"
+
+category = get_all_categories()[input("What book category do you want to scrape the data from: ").lower()]
 
 def get_books_urls():
     url = "http://books.toscrape.com/catalogue/category/books/{0}".format(category)
@@ -74,6 +75,7 @@ def write_csv():
         for book in get_books_urls(): ## writes the retrieved data in each column
             writer.writerow(get_book_infos(book))
     
+    print("Successful request!")
     return
 
 write_csv()
