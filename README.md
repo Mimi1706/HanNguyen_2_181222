@@ -7,9 +7,10 @@
 As part of the Openclassrooms [Python software developer program](https://openclassrooms.com/fr/paths/518-developpeur-dapplication-python), this project introduces to the basics of Python by setting up a pipeline ETL with Requests and BeautifulSoup.
 
 The goals were to create several scripts to:
--- scrape the requested data (title, description, price, UPC...) and cover of one book
--- scrape the requested data (title, description, price, UPC...) of all the books for each category
--- scrape the books cover and sort them by category
+
+- scrape the requested data (title, description, price, UPC...) and cover of one book
+- scrape the requested data (title, description, price, UPC...) of all the books for each category
+- scrape the books cover and sort them by category
 
 ### Books Online
 
@@ -17,14 +18,15 @@ Books Online is an online library platform looking to set up a price monitoring 
 
 ## Prerequisites for installation
 
--- [Python3](https://www.python.org/downloads/)
--- Pip3 (If Python3 is installed, you can install pip3 with `python -m pip3 install`)
+- [Python3](https://www.python.org/downloads/)
+- Pip3 (If Python3 is installed, you can install pip3 with `python -m pip3 install`)
 
 ### Dependencies
 
 The dependencies and their versions are listed in the `requirements.txt` but mainly, it requires:
--- BeautifulSoup
--- Requests
+
+- BeautifulSoup
+- Requests
 
 ## Installing and lauching
 
