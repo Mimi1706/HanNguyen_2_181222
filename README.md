@@ -1,6 +1,6 @@
 [![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)
 
-# # [OpenClassrooms] - Projet 2
+## [OpenClassrooms] - Projet 2
 
 **Utiliser les bases de Python pour l'analyse de marché**
 
@@ -36,3 +36,12 @@ The dependencies and their versions are listed in the `requirements.txt` but mai
 4. Activate your environement with `source env/bin/activate`
 5. Install the dependencies for your environment with `pip3 install -r requirements.txt`
 6. Launch the script you want in your terminal, the title of each script is self-explanatory, for example type: `all_books_scraping.py` will scrape all the books, then follow the terminal instructions.
+
+## Script description
+
+- all_books_scraping: will scrape the entirety of the books infos in one unique CSV file
+- all_categories_books_scraping: will scrape the entirety of the books info in several CSV files by categories
+- all_categories_images_scraping: will scrape the entirety of the books cover in several folders by categories
+- category_books_scraping: will scrape the chosen book category by the user in the terminal
+- category_images_scraping: will scrape the covers from the chosen book category by the user in the terminal
+- one_book_scraping: will scrape one book infos and cover from the URL pasted in the terminal by the user
