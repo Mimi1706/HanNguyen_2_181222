@@ -4,7 +4,7 @@ import csv
 import os ## to create a directory
 
 def get_categories():
-    all_categories = {}
+    all_categories = {} ## need a dictionary to match the category to the category_number
     url = "http://books.toscrape.com/index.html"
     response = requests.get(url)
     soup = BeautifulSoup(response.text, "html.parser") ## parser type
@@ -65,6 +65,7 @@ def get_book_infos(book_url):
     return product_page_url, universal_product_code, title, price_including_tax, price_excluding_tax, number_available, product_description, category, review_rating, image_url
 
 def get_all_books():
+    print("Please wait...")
     en_tete = ["product_page_url", "universal_product_code", "title", "price_including_tax", "price_excluding_tax", "number_available", "product_description", "category", "review_rating", "image_url"]
     if not os.path.exists("./books-to-scrape"):
         os.makedirs("./books-to-scrape") ## creates the books folder
@@ -76,7 +77,7 @@ def get_all_books():
             for book in get_books_urls(get_categories()[category]): ## writes the retrieved data in each column
                 writer.writerow(get_book_infos(book))
 
-    print("Successful request!")
+    print("Scraping completed!")
     return
     
 get_all_books()

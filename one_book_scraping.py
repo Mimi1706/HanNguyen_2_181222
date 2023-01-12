@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import csv
 import os
 
+
 book_url = input("Paste the book's url you want to scrape the data and cover from: ")
 
 def get_book_infos(book_url):
@@ -24,6 +25,7 @@ def get_book_infos(book_url):
     return product_page_url, universal_product_code, title, price_including_tax, price_excluding_tax, number_available, product_description, category, review_rating, image_url
 
 def get_book():
+    print("Please wait...")
     en_tete = ["product_page_url", "universal_product_code", "title", "price_including_tax", "price_excluding_tax", "number_available", "product_description", "category", "review_rating", "image_url"]
 
     book_title = '_'.join(get_book_infos(book_url)[2].split(' '))
@@ -40,7 +42,7 @@ def get_book():
     with open('./{0}/{0}.jpg'.format(book_title), 'wb') as image_file:
         image_file.write(img_data) ## saves the image
 
-    print("Successful request!")
+    print("Request completed!")
     return 
     
 get_book()

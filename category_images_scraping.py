@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import os
 
 def get_all_categories():
-    all_categories = {}
+    all_categories = {} ## need a dictionary to match the category to the category_number
     url = "http://books.toscrape.com/index.html"
     response = requests.get(url)
     soup = BeautifulSoup(response.text, "html.parser") ## parser type
@@ -15,6 +15,7 @@ def get_all_categories():
 
     return all_categories
 
+print(get_all_categories().keys())
 category = get_all_categories()[input("What book category do you want to scrape the covers from: ").lower()]
 
 def get_books_urls():
@@ -57,17 +58,18 @@ def get_book_infos(book_url):
 
     return title, image_url
 
-def get_images():  
-    if not os.path.exists("./images"):
-        os.makedirs("./images") ## creates the books folder  
-    if not os.path.exists("./images/{0}".format(''.join(category.split('_')[:-1]))):
-        os.makedirs("./images/{0}".format(''.join(category.split('_')[:-1]))) ## creates the category folder
+def get_images():
+    print("Please wait...")
+    if not os.path.exists("./books-to-scrape"):
+        os.makedirs("./books-to-scrape") ## creates the books folder  
+    if not os.path.exists("./books-to-scrape/{0}".format(''.join(category.split('_')[:-1]))):
+        os.makedirs("./books-to-scrape/{0}".format(''.join(category.split('_')[:-1]))) ## creates the category folder
     for book in get_books_urls():
         img_data = requests.get(get_book_infos(book)[1]).content ## retrieves the image content via the url
-        with open('./images/{0}/{1}.jpg'.format(''.join(category.split('_')[:-1]),get_book_infos(book)[0]), 'wb') as image_file:
+        with open('./books-to-scrape/{0}/{1}.jpg'.format(''.join(category.split('_')[:-1]),get_book_infos(book)[0]), 'wb') as image_file:
             image_file.write(img_data) ## saves the image
     
-    print("Successful request!")
+    print("Scraping completed!")
     return
 
 get_images()

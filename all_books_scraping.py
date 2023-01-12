@@ -41,6 +41,7 @@ def get_book_infos(book_url):
     return product_page_url, universal_product_code, title, price_including_tax, price_excluding_tax, number_available, product_description, category, review_rating, image_url
 
 def write_csv():
+    print("Please wait...")
     en_tete = ["product_page_url", "universal_product_code", "title", "price_including_tax", "price_excluding_tax", "number_available", "product_description", "category", "review_rating", "image_url"]
 
     with open("all_books.csv", "w", newline="") as fichier_csv:
@@ -49,8 +50,8 @@ def write_csv():
         for book in get_all_books_urls(): ## writes the retrieved data in each column
             writer.writerow(get_book_infos(book))
 
-    print("Successful request!")
+    print("Scraping completed!")
     return 
     
-get_all_books_urls()
+write_csv()
         

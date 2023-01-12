@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import csv
 
 def get_all_categories():
-    all_categories = {}
+    all_categories = {} ## need a dictionary to match the category to the category_number
     url = "http://books.toscrape.com/index.html"
     response = requests.get(url)
     soup = BeautifulSoup(response.text, "html.parser") ## parser type
@@ -15,7 +15,7 @@ def get_all_categories():
 
     return all_categories
 
-
+print(get_all_categories().keys())
 category = get_all_categories()[input("What book category do you want to scrape the data from: ").lower()]
 
 def get_books_urls():
@@ -67,6 +67,7 @@ def get_book_infos(book_url):
     return product_page_url, universal_product_code, title, price_including_tax, price_excluding_tax, number_available, product_description, category, review_rating, image_url
 
 def write_csv():
+    print("Please wait...")
     en_tete = ["product_page_url", "universal_product_code", "title", "price_including_tax", "price_excluding_tax", "number_available", "product_description", "category", "review_rating", "image_url"]
 
     with open("{0}_books.csv".format(''.join(category.split('_')[:-1])), "w", newline="") as fichier_csv:
@@ -75,7 +76,7 @@ def write_csv():
         for book in get_books_urls(): ## writes the retrieved data in each column
             writer.writerow(get_book_infos(book))
     
-    print("Successful request!")
+    print("Scraping request!")
     return
 
 write_csv()
