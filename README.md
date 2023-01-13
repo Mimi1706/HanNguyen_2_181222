@@ -35,7 +35,7 @@ The dependencies and their versions are listed in the `requirements.txt` but mai
 5. Install the dependencies for your environment with `pip3 install -r requirements.txt`
 6. Launch the script you want in your terminal, the title of each script is self-explanatory, for example type: `all_books_scraping.py` will scrape all the books, then follow the terminal instructions.
 
-## Script description
+## Scripts description
 
 - **all_books_scraping**: will scrape the entirety of the books infos in one unique CSV file
 - **all_categories_books_scraping**: will scrape the entirety of the books infos in several CSV files by categories
