@@ -38,8 +38,8 @@ The dependencies and their versions are listed in the `requirements.txt` but mai
 ## Script description
 
 - **all_books_scraping**: will scrape the entirety of the books infos in one unique CSV file
-- **all_categories_books_scraping**: will scrape the entirety of the books info in several CSV files by categories
-- **all_categories_images_scraping**: will scrape the entirety of the books cover in several folders by categories
+- **all_categories_books_scraping**: will scrape the entirety of the books infos in several CSV files by categories
+- **all_categories_images_scraping**: will scrape the entirety of the books covers in several folders by categories
 - **category_books_scraping**: will scrape the chosen book category by the user in the terminal
 - **category_images_scraping**: will scrape the covers from the chosen book category by the user in the terminal
 - **one_book_scraping**: will scrape one book infos and cover from the URL pasted in the terminal by the user
