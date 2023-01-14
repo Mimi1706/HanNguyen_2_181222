@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import csv
+import os
 
 def get_all_categories():
     all_categories = {} ## need a dictionary to match the category to the category_number
@@ -70,7 +71,10 @@ def write_csv():
     print("Please wait...")
     en_tete = ["product_page_url", "universal_product_code", "title", "price_including_tax", "price_excluding_tax", "number_available", "product_description", "category", "review_rating", "image_url"]
 
-    with open("{0}_books.csv".format(''.join(category.split('_')[:-1])), "w", newline="") as fichier_csv:
+    if not os.path.exists("./books-to-scrape"):
+        os.makedirs("./books-to-scrape") ## creates the books folder 
+
+    with open("./books-to-scrape/{0}_books.csv".format(''.join(category.split('_')[:-1])), "w", newline="") as fichier_csv:
         writer = csv.writer(fichier_csv, delimiter=",") ## defines the writing method
         writer.writerow(en_tete) ## writes the columns title
         for book in get_books_urls(): ## writes the retrieved data in each column
