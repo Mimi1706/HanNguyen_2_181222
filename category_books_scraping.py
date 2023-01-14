@@ -76,7 +76,7 @@ def write_csv():
         for book in get_books_urls(): ## writes the retrieved data in each column
             writer.writerow(get_book_infos(book))
     
-    print("Scraping request!")
+    print("Scraping completed!")
     return
 
 write_csv()
