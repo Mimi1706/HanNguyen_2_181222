@@ -21,7 +21,7 @@ category = get_all_categories()[input("What book category do you want to scrape 
 def get_books_urls():
     url = "http://books.toscrape.com/catalogue/category/books/{0}".format(category)
     response = requests.get(url)
-    soup = BeautifulSoup(response.text, "html.parser") ## parser type
+    soup = BeautifulSoup(response.text, "html.parser") 
     books_urls = []
 
     if soup.find("li", {"class": "current"}) is not None: ## if there are multiple pages
