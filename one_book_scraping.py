@@ -42,7 +42,7 @@ def get_book():
     with open('./{0}/{0}.jpg'.format(book_title), 'wb') as image_file:
         image_file.write(img_data) ## saves the image
 
-    print("Request completed!")
+    print("Scraping completed!")
     return 
     
 get_book()
